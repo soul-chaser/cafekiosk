@@ -1,5 +1,6 @@
 package sample.cafekiosk.unit;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import sample.cafekiosk.unit.beverage.Americano;
 import sample.cafekiosk.unit.beverage.Latte;
@@ -12,6 +13,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class CafeKioskTest {
 
+//    @DisplayName("음료 1개 추가 테스트")
+    @DisplayName("음료 1개를 추가하면 주문 목록에 담긴다.")
     @Test
     void addManualTest() {
         // Given
@@ -100,6 +103,24 @@ class CafeKioskTest {
 
         // Then
         assertThat(cafeKiosk.getBeverages()).isEmpty();
+    }
+
+    @DisplayName("주문 목록에 담긴 삼품들의 총 금액을 계산할 수 있다.")
+    @Test
+    void itCalculateTotalPrice() {
+        // Given
+        CafeKiosk cafeKiosk = new CafeKiosk();
+        Americano americano = new Americano();
+        Latte latte = new Latte();
+
+        cafeKiosk.add(americano);
+        cafeKiosk.add(latte);
+
+        // When
+        int totalPrice = cafeKiosk.calculateTotalPrice();
+
+        // Then
+        assertThat(totalPrice).isEqualTo(8500);
     }
 
     @Test
